@@ -1,0 +1,113 @@
+#arena {
+    width: calc(80vmin - 10px);
+    height: calc(80vmin - 10px);
+    margin: 5vmin auto auto;
+    background-color: olivedrab;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 3%;
+    padding: 3%;
+    border-radius: 5%;
+}
+
+.box {
+    padding: 5%;
+    background-color: azure;
+    border-radius: 5%;
+}
+
+.red {
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    margin: 20%;
+
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-name: intro_red;
+
+    background-color: crimson;
+}
+
+@keyframes intro_red {
+    0% {
+        width: 0%;
+        height: 0%;
+
+        margin: 50%;
+        background-color: white;
+    }
+
+    70% {
+        width: 70%;
+        height: 70%;
+
+        margin: 15%;
+        background-color: crimson;
+    }
+
+    100% {
+        width: 60%;
+        height: 60%;
+
+        margin: 20%;
+        background-color: crimson;
+    }
+}
+
+.blue {
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    margin: 20%;
+
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-name: intro_blue;
+
+    background-color: dodgerblue;
+}
+
+@keyframes intro_blue {
+    0% {
+        width: 0%;
+        height: 0%;
+
+        margin: 50%;
+        background-color: white;
+    }
+
+    70% {
+        width: 70%;
+        height: 70%;
+
+        margin: 15%;
+        background-color: dodgerblue;
+    }
+
+    100% {
+        width: 60%;
+        height: 60%;
+
+        margin: 20%;
+        background-color: dodgerblue;
+    }
+}
+
+.win {
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    animation-name: intro_win;
+
+    background-color: dodgerblue;
+}
+
+@keyframes intro_win {
+    from {
+        background-color: olivedrab;
+    }
+    to {
+        background-color: dodgerblue;
+    }
+}

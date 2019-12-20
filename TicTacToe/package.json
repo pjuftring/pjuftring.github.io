@@ -1,0 +1,15 @@
+{
+  "name": "ttt",
+  "collaborators": [
+    "pjuftring <pjuftring@users.noreply.github.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "ttt_bg.wasm",
+    "ttt.js",
+    "ttt.d.ts"
+  ],
+  "module": "ttt.js",
+  "types": "ttt.d.ts",
+  "sideEffects": "false"
+}
