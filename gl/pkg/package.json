@@ -1,0 +1,15 @@
+{
+  "name": "gl",
+  "collaborators": [
+    "pjuftring <pjuftring@users.noreply.github.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "gl_bg.wasm",
+    "gl.js",
+    "gl.d.ts"
+  ],
+  "module": "gl.js",
+  "types": "gl.d.ts",
+  "sideEffects": false
+}
