@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    </head>
+    <body>
+        <canvas width="800" height="600"></canvas>
+        <script type="module">
+            import init, {App} from './pkg/gl.js';
+            async function run() {
+                let wasm = await init();
+                // tell helper.js about our memory
+                window.wasm = wasm;
+                const app = new App();
+                let loop = function(time) {
+                    app.draw_loop(time);
+                    window.requestAnimationFrame(loop);
+                }
+                window.requestAnimationFrame(loop);
+            }
+            run();
+        </script>
+    </body>
+</html>
