@@ -1,25 +1,32 @@
-import init, {Game} from './pkg/wendytale.js';
+import init, {game_start, game_step, game_keydown, game_keyup} from './pkg/wendytale.js';
 
 async function run() {
     await init();
     
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    const game = new Game(ctx);
+
+    game_start(ctx);
 
     function keydown(e) {
-        game.keydown(e.key.charCodeAt(0));
+        if (e.key.length != 1) {
+            return;
+        }
+        game_keydown(e.key.charCodeAt(0));
     }
     function keyup(e) {
-        game.keyup(e.key.charCodeAt(0));
+        if (e.key.length != 1) {
+            return;
+        }
+        game_keyup(e.key.charCodeAt(0));
     }
     document.addEventListener('keydown', keydown);
     document.addEventListener('keyup', keyup);   
-    function game_step(time) {
-        game.step(time);
-        window.requestAnimationFrame(game_step);
+    function game_step_js(time) {
+        game_step(ctx, time);
+        window.requestAnimationFrame(game_step_js);
     }
-    window.requestAnimationFrame(game_step);
+    window.requestAnimationFrame(game_step_js);
 }
 
 run();
