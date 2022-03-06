@@ -1,10 +1,16 @@
 import init, {game_start, game_step, game_keydown, game_keyup} from './pkg/wendytale.js';
 
 async function run() {
+    const font = new FontFace('determination', 'url(assets/determination.ttf)');
+    await font.load();
     await init();
-    
+
+    document.fonts.add(font);
+    await document.fonts.ready;
+
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
+    ctx.font = '10px "determination"';
 
     game_start(ctx);
 
