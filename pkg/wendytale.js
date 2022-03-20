@@ -1,3 +1,4 @@
+import { set_background, get_text_width } from './snippets/wendytale-708d8ccb4e72f1d8/src/glue.js';
 
 let wasm;
 
@@ -21,15 +22,6 @@ function takeObject(idx) {
     return ret;
 }
 
-function addHeapObject(obj) {
-    if (heap_next === heap.length) heap.push(heap.length + 1);
-    const idx = heap_next;
-    heap_next = heap[idx];
-
-    heap[idx] = obj;
-    return idx;
-}
-
 let cachedTextDecoder = new TextDecoder('utf-8', { ignoreBOM: true, fatal: true });
 
 cachedTextDecoder.decode();
@@ -44,6 +36,15 @@ function getUint8Memory0() {
 
 function getStringFromWasm0(ptr, len) {
     return cachedTextDecoder.decode(getUint8Memory0().subarray(ptr, ptr + len));
+}
+
+function addHeapObject(obj) {
+    if (heap_next === heap.length) heap.push(heap.length + 1);
+    const idx = heap_next;
+    heap_next = heap[idx];
+
+    heap[idx] = obj;
+    return idx;
 }
 
 let stack_pointer = 32;
@@ -127,8 +128,8 @@ async function init(input) {
     }
     const imports = {};
     imports.wbg = {};
-    imports.wbg.__wbg_log_6dffe2549c2f4d21 = function(arg0, arg1) {
-        console.log(getStringFromWasm0(arg0, arg1));
+    imports.wbg.__wbg_setbackground_3408067e8068d822 = function(arg0, arg1) {
+        set_background(getStringFromWasm0(arg0, arg1));
     };
     imports.wbg.__wbg_new_ecc876f0b8078f1c = function() {
         var ret = new Image();
@@ -143,23 +144,36 @@ async function init(input) {
     imports.wbg.__wbg_drawImage_392219649e439053 = function(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9) {
         getObject(arg0).drawImage(getObject(arg1), arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
     };
-    imports.wbg.__wbg_scale_5c87a566e2a52a1e = function(arg0, arg1, arg2) {
-        getObject(arg0).scale(arg1, arg2);
-    };
-    imports.wbg.__wbg_fillRect_29a060885cf27ed4 = function(arg0, arg1, arg2, arg3, arg4) {
-        getObject(arg0).fillRect(arg1, arg2, arg3, arg4);
-    };
-    imports.wbg.__wbg_setimageSmoothingEnabled_d72a67dcbc747a50 = function(arg0, arg1) {
-        getObject(arg0).imageSmoothingEnabled = arg1 !== 0;
+    imports.wbg.__wbg_gettextwidth_47b3af16020b8bd6 = function(arg0, arg1, arg2) {
+        var ret = get_text_width(getObject(arg0), getStringFromWasm0(arg1, arg2));
+        return ret;
     };
     imports.wbg.__wbg_setglobalAlpha_6c6aa2e455dce489 = function(arg0, arg1) {
         getObject(arg0).globalAlpha = arg1;
     };
+    imports.wbg.__wbg_fillRect_29a060885cf27ed4 = function(arg0, arg1, arg2, arg3, arg4) {
+        getObject(arg0).fillRect(arg1, arg2, arg3, arg4);
+    };
+    imports.wbg.__wbg_setfillStyle_288a3d9917027178 = function(arg0, arg1, arg2) {
+        getObject(arg0).fillStyle = getStringFromWasm0(arg1, arg2);
+    };
     imports.wbg.__wbg_fillText_98dc44deb47a5327 = function(arg0, arg1, arg2, arg3, arg4) {
         getObject(arg0).fillText(getStringFromWasm0(arg1, arg2), arg3, arg4);
     };
+    imports.wbg.__wbg_log_6dffe2549c2f4d21 = function(arg0, arg1) {
+        console.log(getStringFromWasm0(arg0, arg1));
+    };
+    imports.wbg.__wbg_clearRect_9a969770171ea4a2 = function(arg0, arg1, arg2, arg3, arg4) {
+        getObject(arg0).clearRect(arg1, arg2, arg3, arg4);
+    };
     imports.wbg.__wbindgen_object_drop_ref = function(arg0) {
         takeObject(arg0);
+    };
+    imports.wbg.__wbg_scale_5c87a566e2a52a1e = function(arg0, arg1, arg2) {
+        getObject(arg0).scale(arg1, arg2);
+    };
+    imports.wbg.__wbg_setimageSmoothingEnabled_d72a67dcbc747a50 = function(arg0, arg1) {
+        getObject(arg0).imageSmoothingEnabled = arg1 !== 0;
     };
 
     if (typeof input === 'string' || (typeof Request === 'function' && input instanceof Request) || (typeof URL === 'function' && input instanceof URL)) {

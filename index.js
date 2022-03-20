@@ -1,7 +1,7 @@
 import init, {game_start, game_step, game_keydown, game_keyup} from './pkg/wendytale.js';
 
 async function run() {
-    const font = new FontFace('determination', 'url(assets/determination.ttf)');
+    const font = new FontFace('determination', 'url(assets/determination.woff)');
     await font.load();
     await init();
 
