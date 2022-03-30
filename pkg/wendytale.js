@@ -1,4 +1,4 @@
-import { set_background, get_text_width } from './snippets/wendytale-708d8ccb4e72f1d8/src/glue.js';
+import { set_background, new_image, get_text_width } from './snippets/wendytale-708d8ccb4e72f1d8/src/glue.js';
 
 let wasm;
 
@@ -22,10 +22,6 @@ function takeObject(idx) {
     return ret;
 }
 
-let cachedTextDecoder = new TextDecoder('utf-8', { ignoreBOM: true, fatal: true });
-
-cachedTextDecoder.decode();
-
 let cachegetUint8Memory0 = null;
 function getUint8Memory0() {
     if (cachegetUint8Memory0 === null || cachegetUint8Memory0.buffer !== wasm.memory.buffer) {
@@ -34,8 +30,8 @@ function getUint8Memory0() {
     return cachegetUint8Memory0;
 }
 
-function getStringFromWasm0(ptr, len) {
-    return cachedTextDecoder.decode(getUint8Memory0().subarray(ptr, ptr + len));
+function getArrayU8FromWasm0(ptr, len) {
+    return getUint8Memory0().subarray(ptr / 1, ptr / 1 + len);
 }
 
 function addHeapObject(obj) {
@@ -45,6 +41,14 @@ function addHeapObject(obj) {
 
     heap[idx] = obj;
     return idx;
+}
+
+let cachedTextDecoder = new TextDecoder('utf-8', { ignoreBOM: true, fatal: true });
+
+cachedTextDecoder.decode();
+
+function getStringFromWasm0(ptr, len) {
+    return cachedTextDecoder.decode(getUint8Memory0().subarray(ptr, ptr + len));
 }
 
 let stack_pointer = 32;
@@ -128,21 +132,21 @@ async function init(input) {
     }
     const imports = {};
     imports.wbg = {};
-    imports.wbg.__wbg_setbackground_3408067e8068d822 = function(arg0, arg1) {
-        set_background(getStringFromWasm0(arg0, arg1));
+    imports.wbg.__wbindgen_object_drop_ref = function(arg0) {
+        takeObject(arg0);
     };
-    imports.wbg.__wbg_new_ecc876f0b8078f1c = function() {
-        var ret = new Image();
+    imports.wbg.__wbg_setbackground_d2a472764c024bf6 = function(arg0, arg1) {
+        set_background(getArrayU8FromWasm0(arg0, arg1));
+    };
+    imports.wbg.__wbg_newimage_a1b503c548ec2432 = function(arg0, arg1) {
+        var ret = new_image(getArrayU8FromWasm0(arg0, arg1));
         return addHeapObject(ret);
-    };
-    imports.wbg.__wbg_setsrc_e1574ced8a8d9057 = function(arg0, arg1, arg2) {
-        getObject(arg0).src = getStringFromWasm0(arg1, arg2);
-    };
-    imports.wbg.__wbg_drawImage_28cc59e5efba5adb = function(arg0, arg1, arg2, arg3) {
-        getObject(arg0).drawImage(getObject(arg1), arg2, arg3);
     };
     imports.wbg.__wbg_drawImage_392219649e439053 = function(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9) {
         getObject(arg0).drawImage(getObject(arg1), arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+    };
+    imports.wbg.__wbg_drawImage_28cc59e5efba5adb = function(arg0, arg1, arg2, arg3) {
+        getObject(arg0).drawImage(getObject(arg1), arg2, arg3);
     };
     imports.wbg.__wbg_gettextwidth_47b3af16020b8bd6 = function(arg0, arg1, arg2) {
         var ret = get_text_width(getObject(arg0), getStringFromWasm0(arg1, arg2));
@@ -165,9 +169,6 @@ async function init(input) {
     };
     imports.wbg.__wbg_clearRect_9a969770171ea4a2 = function(arg0, arg1, arg2, arg3, arg4) {
         getObject(arg0).clearRect(arg1, arg2, arg3, arg4);
-    };
-    imports.wbg.__wbindgen_object_drop_ref = function(arg0) {
-        takeObject(arg0);
     };
     imports.wbg.__wbg_scale_5c87a566e2a52a1e = function(arg0, arg1, arg2) {
         getObject(arg0).scale(arg1, arg2);
