@@ -11,6 +11,9 @@ export function new_image(data) {
     img.src = base64(data);
     return img;
 }
+export function get_null_image() {
+    return null;
+}
 
 export function get_text_width(ctx, txt) {
     return ctx.measureText(txt).width;
